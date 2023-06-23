@@ -91,6 +91,8 @@
 
 <script setup>
 onMounted(() => {
-	console.log('ref', document.referrer);
+	if (process.client) {
+		console.log('ref', document.referrer);
+	}
 });
 </script>
