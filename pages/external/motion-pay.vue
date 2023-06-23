@@ -92,7 +92,7 @@
 <script setup>
 onMounted(() => {
 	if (process.client) {
-		console.log('doc', document);
+		console.log('doc', { document });
 		console.log('ref', document.referrer);
 	}
 });
