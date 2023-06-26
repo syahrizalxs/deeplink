@@ -1,6 +1,6 @@
 <template>
 	<div class="flex h-screen justify-center items-center bg-surface px-3 py-5">
-		<div class="max-w-sm">
+		<div class="max-w-sm" v-if="isShowSuccess">
 			<div class="flex flex-col gap-5 items-center">
 				<SalutationImage />
 				<span class="text-[21px] font-semibold text-center"
@@ -16,9 +16,9 @@
 					></iconify-icon>
 					<div class="flex flex-col">
 						<span>Nama</span>
-						<span class="text-primaryblue font-semibold"
-							>Syahrizal Setiawan</span
-						>
+						<span class="text-primaryblue font-semibold">{{
+							user?.full_name
+						}}</span>
 					</div>
 				</div>
 
@@ -29,18 +29,20 @@
 					></iconify-icon>
 					<div class="flex flex-col">
 						<span>NIK</span>
-						<span class="text-primaryblue font-semibold">3175051811950005</span>
+						<span class="text-primaryblue font-semibold">{{ user?.nik }}</span>
 					</div>
 				</div>
 
 				<div class="flex gap-2 border-b border-gray-200 p-2">
 					<iconify-icon
-						icon="ant-design:number-outlined"
+						icon="icon-park-outline:announcement"
 						class="text-xl text-primaryblue font-bold"
 					></iconify-icon>
 					<div class="flex flex-col">
 						<span>NO TPS</span>
-						<span class="text-primaryblue font-semibold">130</span>
+						<span class="text-primaryblue font-semibold">{{
+							user?.tps_no
+						}}</span>
 					</div>
 				</div>
 
@@ -51,7 +53,9 @@
 					></iconify-icon>
 					<div class="flex flex-col">
 						<span>Kelurahan</span>
-						<span class="text-primaryblue font-semibold">Kalisari</span>
+						<span class="text-primaryblue font-semibold">{{
+							user?.kelurahan
+						}}</span>
 					</div>
 				</div>
 
@@ -62,7 +66,9 @@
 					></iconify-icon>
 					<div class="flex flex-col">
 						<span>Kecamatan</span>
-						<span class="text-primaryblue font-semibold">Pasar Rebo</span>
+						<span class="text-primaryblue font-semibold">{{
+							user?.kecamatan
+						}}</span>
 					</div>
 				</div>
 
@@ -85,15 +91,78 @@
 					</span>
 				</div>
 			</div>
+
+			<div
+				class="text-center items-center text-xs p-3 font-normal text-darktext"
+			>
+				Halaman ini akan tertutup otomatis dalam
+				<span class="text-primaryred font-semibold"> {{ countTime }}</span>
+				detik
+			</div>
+		</div>
+		<div v-if="!isShowSuccess">
+			<Loader />
 		</div>
 	</div>
 </template>
 
 <script setup>
+const runtime = useRuntimeConfig();
+const route = useRoute();
+
+const user = ref({});
+
+const isShowSuccess = ref(false);
+const interval = ref(null);
+const countTime = ref(5);
+
+const putStatus = async (referrer) => {
+	// if (!referrer) return;
+	try {
+		const res = await $fetch(`${runtime.public.API}/saksi/saksi/status`, {
+			params: {
+				// referer_url: referrer
+				referer_url: 'https://staging-landing.motionpay.id/'
+			},
+			method: 'PUT',
+			headers: {
+				Authorization: `Bearer ${route.query.token}`
+			}
+		});
+
+		console.log({ afterChangeStatus: res });
+
+		getAuthSaksi();
+	} catch (error) {
+		console.error(error);
+	}
+};
+
+const getAuthSaksi = async () => {
+	const res = await $fetch(`${runtime.public.API}/saksi/auth`, {
+		headers: {
+			Authorization: `Bearer ${route.query.token}`
+		}
+	});
+
+	console.log({ authSaksi: res });
+	user.value = res.data;
+};
+
+watch(
+	() => isShowSuccess.value,
+	(val) => {
+		if (val) {
+			interval.value = setInterval(() => {
+				--countTime.value;
+				if (countTime.value === 0) clearInterval(interval.value);
+			}, 1000);
+		}
+	}
+);
 onMounted(() => {
 	if (process.client) {
-		console.log('doc', { document });
-		console.log('ref', document.referrer);
+		putStatus(document.referrer);
 	}
 });
 </script>

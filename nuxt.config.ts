@@ -37,5 +37,10 @@ export default defineNuxtConfig({
 		compilerOptions: {
 			isCustomElement: (tag) => tag === 'iconify-icon'
 		}
+	},
+	runtimeConfig: {
+		public: {
+			API: process.env.BASE_API
+		}
 	}
 });
