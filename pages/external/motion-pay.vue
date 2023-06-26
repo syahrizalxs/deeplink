@@ -130,7 +130,6 @@ const putStatus = async (referrer) => {
 			}
 		});
 
-		console.log({ afterChangeStatus: res });
 		isShowSuccess.value = true;
 
 		getAuthSaksi();
@@ -146,8 +145,7 @@ const getAuthSaksi = async () => {
 		}
 	});
 
-	console.log({ authSaksi: res });
-	user.value = res.data;
+	user.value = res;
 };
 
 watch(
