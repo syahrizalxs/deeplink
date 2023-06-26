@@ -140,7 +140,7 @@ const putStatus = async (referrer) => {
 };
 
 const getAuthSaksi = async () => {
-	const res = await $fetch(`${runtime.public.BASE_API}/saksi/auth`, {
+	const res = await $fetch(`${runtime.public.API}/saksi/auth`, {
 		headers: {
 			Authorization: `Bearer ${route.query.token}`
 		}
