@@ -120,7 +120,7 @@ const putStatus = async (referrer) => {
 	// if (!referrer) return;
 	try {
 		const res = await $fetch(`${runtime.public.API}/saksi/saksi/status`, {
-			params: {
+			body: {
 				referer_url: referrer
 				// referer_url: 'https://staging-landing.motionpay.id/'
 			},
