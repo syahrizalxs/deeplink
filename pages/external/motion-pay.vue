@@ -119,7 +119,7 @@ const countTime = ref(5);
 const putStatus = async (referrer) => {
 	// if (!referrer) return;
 	try {
-		const res = await $fetch(`${runtime.public.API}/saksi/saksi/status`, {
+		const res = await $fetch(`${runtime.public.BASE_API}/saksi/saksi/status`, {
 			params: {
 				referer_url: referrer
 				// referer_url: 'https://staging-landing.motionpay.id/'
@@ -140,7 +140,7 @@ const putStatus = async (referrer) => {
 };
 
 const getAuthSaksi = async () => {
-	const res = await $fetch(`${runtime.public.API}/saksi/auth`, {
+	const res = await $fetch(`${runtime.public.BASE_API}/saksi/auth`, {
 		headers: {
 			Authorization: `Bearer ${route.query.token}`
 		}
