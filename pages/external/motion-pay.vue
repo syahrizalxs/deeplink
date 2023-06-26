@@ -121,8 +121,8 @@ const putStatus = async (referrer) => {
 	try {
 		const res = await $fetch(`${runtime.public.API}/saksi/saksi/status`, {
 			params: {
-				// referer_url: referrer
-				referer_url: 'https://staging-landing.motionpay.id/'
+				referer_url: referrer
+				// referer_url: 'https://staging-landing.motionpay.id/'
 			},
 			method: 'PUT',
 			headers: {
