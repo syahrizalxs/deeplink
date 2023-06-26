@@ -131,6 +131,7 @@ const putStatus = async (referrer) => {
 		});
 
 		console.log({ afterChangeStatus: res });
+		isShowSuccess.value = true;
 
 		getAuthSaksi();
 	} catch (error) {
