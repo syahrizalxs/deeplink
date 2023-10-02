@@ -135,6 +135,7 @@ const putStatus = async (referrer) => {
 		getAuthSaksi();
 	} catch (error) {
 		console.error(error);
+		alert(JSON.stringify(error))
 	}
 };
 
