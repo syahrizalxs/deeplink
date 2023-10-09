@@ -54,7 +54,7 @@
 					<div class="flex flex-col">
 						<span>Kelurahan</span>
 						<span class="text-primaryblue font-semibold">{{
-							user?.kelurahan
+							user?.kelurahan?.name
 						}}</span>
 					</div>
 				</div>
@@ -67,7 +67,7 @@
 					<div class="flex flex-col">
 						<span>Kecamatan</span>
 						<span class="text-primaryblue font-semibold">{{
-							user?.kecamatan
+							user?.kecamatan?.name
 						}}</span>
 					</div>
 				</div>
