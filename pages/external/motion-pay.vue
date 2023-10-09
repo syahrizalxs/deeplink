@@ -54,7 +54,7 @@
 					<div class="flex flex-col">
 						<span>Kelurahan</span>
 						<span class="text-primaryblue font-semibold">{{
-							user?.kelurahan?.name
+							user?.kelurahan
 						}}</span>
 					</div>
 				</div>
@@ -67,7 +67,7 @@
 					<div class="flex flex-col">
 						<span>Kecamatan</span>
 						<span class="text-primaryblue font-semibold">{{
-							user?.kecamatan?.name
+							user?.kecamatan
 						}}</span>
 					</div>
 				</div>
@@ -140,7 +140,7 @@ const putStatus = async (referrer) => {
 };
 
 const getAuthSaksi = async () => {
-	const res = await $fetch(`${runtime.public.API}/saksi/auth?area=detail`, {
+	const res = await $fetch(`${runtime.public.API}/saksi/auth`, {
 		headers: {
 			Authorization: `Bearer ${route.query.token}`
 		}
