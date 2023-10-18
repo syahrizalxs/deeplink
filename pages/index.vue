@@ -1,3 +1,3 @@
 <template>
-	<h2>Welcome</h2>
+	<h2>Partai Perindo</h2>
 </template>
